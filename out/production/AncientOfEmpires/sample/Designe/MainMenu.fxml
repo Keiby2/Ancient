@@ -51,5 +51,29 @@
             <Insets top="10.0" />
          </VBox.margin>
       </Button>
+      <BorderPane prefHeight="50.0" prefWidth="200.0">
+         <right>
+            <VBox prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="Version" text="Version: 00.005.01">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="LastUpdate" text="Last Update: 22.10.2018">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </VBox>
+         </right>
+         <VBox.margin>
+            <Insets top="70.0" />
+         </VBox.margin>
+      </BorderPane>
    </children>
 </VBox>

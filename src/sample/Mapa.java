@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Mapa {
 
@@ -18,18 +19,8 @@ public class Mapa {
     private HBox bpx;
     private Boolean check = false;
     private int x, y;
-    private int id;
+    private String id;
 
-    /**
-     * Строит класс элемент карты, так же тут описано осбытие,
-     * при котором клик - выделяет элемент, повторный снимает выделение.
-     *
-     * И пробное всплывающее меню
-     *
-     * @param x положение по оси х
-     * @param y положение по оси у
-     * @param c размер элемента (квадрат)
-     */
     public Mapa(int x, int y, int c) {
         img = new ImageView();
         bpx = new HBox();
@@ -38,60 +29,77 @@ public class Mapa {
         img.setFitHeight(c);
         img.setFitWidth(c);
         img.getStyleClass().add("grid");
-        img.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println(check);
-                if (!check) {
-                    System.out.println("red");
-                    bpx.getStyleClass().add("imgSelected");
-                    bpx.getStyleClass().remove("imgUnSelected");
-                    check = true;
-                } else if(check) {
-                    System.out.println("blue");
-                    bpx.getStyleClass().add("imgUnSelected");
-                    bpx.getStyleClass().remove("imgSelected");
-                    check = false;
+     /*   img.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
+                    System.out.println(check);
+                    if (!check) {
+                        System.out.println("red");
+                        bpx.getStyleClass().add("imgSelected");
+                        bpx.getStyleClass().remove("imgUnSelected");
+                        check = true;
+                    } else if(check) {
+                        System.out.println("blue");
+                        bpx.getStyleClass().add("imgUnSelected");
+                        bpx.getStyleClass().remove("imgSelected");
+                        check = false;
+                    }
+                //    event.consume();
                 }
-            //    event.consume();
-            }
-        });
+        });*/
 
         bpx.getChildren().add(img);
         this.x = x;
         this.y = y;
-        this.id = 0;
+        this.id = "0";
 
 
-        //--------------
+   /*     //--------------
         Stage tipStage = new Stage();
         //----------------------
         img.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-//                Parent root = null;
-//                try {
-//                    root = FXMLLoader.load(getClass().getResource("Designe/wind.fxml"));
-//                    tipStage.setTitle("777");
-//                    Scene scene = new Scene(root, 300, 400);
-//                    scene.getStylesheets().add(String.valueOf(getClass().getResource("my.css")));
-//                    tipStage.setScene(scene);
-//                    tipStage.show();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("wind.fxml"));
+                    tipStage.setTitle("777");
+                    Scene scene = new Scene(root, 300, 400);
+                    scene.getStylesheets().add(String.valueOf(getClass().getResource("my.css")));
+                    tipStage.setScene(scene);
+                    tipStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        });
+        });*/
         //----------------------
-        img.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+        /*img.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 tipStage.close();
             }
-        });
+        });*/
     }
 
-    // Геттеры и сеттеры
+    // Перегрузка конструктора для восстановления карты из файла
+    public Mapa(int x, int y, int c, String id) {
+        MapFactory factory = new MapFactory();
+        img = new ImageView();
+        bpx = new HBox();
+        Image im = factory.switchImg(id);
+        img.setImage(im);
+        img.setFitHeight(c);
+        img.setFitWidth(c);
+        img.getStyleClass().add("grid");
+
+        bpx.getChildren().add(img);
+        this.x = x;
+        this.y = y;
+        this.id = id;
+    }
+
     public HBox getBox() {
         return bpx;
     }
@@ -100,20 +108,16 @@ public class Mapa {
         return img;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public void setImg(ImageView img) {
         this.img = img;
-    }
-
-    public void setImge(Image img) {
-        this.img.setImage(img);
     }
 
     public Boolean getCheck() {
@@ -141,6 +145,10 @@ public class Mapa {
     }
 
     public String getIdString() {
-        return Integer.toString(id);
+        return id;
+    }
+
+    public String toString() {
+        return id;
     }
 }

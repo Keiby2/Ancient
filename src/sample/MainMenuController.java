@@ -8,12 +8,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.Model.Squad;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -21,8 +29,12 @@ import java.util.ResourceBundle;
  */
 public class MainMenuController implements Initializable{
 
+    private String version, lastUpdate;
     private Squad squad;        //model
 
+    //---------------------------------------------
+    @FXML
+    private Label Version, LastUpdate;
     //----------------------------------------------
 
     /**
@@ -37,7 +49,7 @@ public class MainMenuController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        ReadAbout();
     }
 
     /**
@@ -96,5 +108,25 @@ public class MainMenuController implements Initializable{
         scene.getStylesheets().add(String.valueOf(getClass().getResource("my2.css")));
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    /**
+     * Чтение из файла конфига инфы о версии и последнем апдейте и вывод в главном меню
+     */
+    private void ReadAbout(){
+        ArrayList<String> listConf = new ArrayList<>();
+        try {
+            Path path = Paths.get(new URI(String.valueOf(getClass().getResource("config.txt"))));
+            Files.lines(path, StandardCharsets.UTF_8)
+                    .forEach(listConf::add);
+            version = listConf.get(0);
+            lastUpdate = listConf.get(1);
+
+            Version.setText("Version: " + version);
+            LastUpdate.setText("LastUpdate: " + lastUpdate);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

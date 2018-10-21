@@ -14,10 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sample.Mapa;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,10 +36,24 @@ public class ControllerMapConstructor implements Initializable {
     @FXML
     private ImageView imgT11, imgT12, imgT13, imgT14, imgT15, imgT16, imgT17, imgT18,
             imgT21, imgT22, imgT23, imgT24, imgT25, imgT26, imgT27, imgT28;
-
+    //------------------------------------------------------------
+    // Элемента из Основного раздела справа
+    @FXML
+    private ImageView imgBase0, imgBase1, imgBase2, imgBase3,
+            imgBase4, imgBase5, imgBase6, imgBase7, imgBase8;
+    @FXML
+    private VBox Vbox01, Vbox11, Vbox02, Vbox12, Vbox03, Vbox13, Vbox04, Vbox14;
+    //-----------------------------------------------------------
+    //Инфор для заполнения ячейки карты
+    private Image imgTMP;
+    ImageBuffer imgBuffer;
+    @FXML
+    ImageView ImgSelect;
+    GridPane gridPane;
+    //-----------------------------------------------------------
     @FXML
     private TextField width, height, cellsSize; //размеры карты в клетках и размер в пикселах
-
+    //-----------------------------------------------------------
     @FXML
     private BorderPane borderPane;
     Stage tipStage = new Stage();
@@ -52,6 +65,7 @@ public class ControllerMapConstructor implements Initializable {
 
     /**
      * Создание самой карты с элементами на ней
+     *
      * @param actionEvent
      */
     @FXML
@@ -60,64 +74,139 @@ public class ControllerMapConstructor implements Initializable {
         int h = Integer.parseInt(height.getText());
         int c = Integer.parseInt(cellsSize.getText());
 
-        GridPane out = new GridPane();
+        gridPane = new GridPane();
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 Mapa mapa = new Mapa(i, j, c);
 
-                out.add(mapa.getBox(), i, j);
-                out.setPrefHeight(100);
-                out.setPrefWidth(100);
-                out.setPadding(new Insets(10, 10, 10, 10));
-                out.setHgap(10);
-                out.setVgap(10);
+                mapa.getImg().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        mapa.getImg().setImage(imgBuffer.getImg());
+                        System.out.println("ID " + imgBuffer.getId());
+                        mapa.setId(imgBuffer.getId());
+                        //    event.consume();
+                    }
+                });
+                gridPane.add(mapa.getBox(), i, j);
+                gridPane.setPrefHeight(100);
+                gridPane.setPrefWidth(100);
+                gridPane.setPadding(new Insets(10, 10, 10, 10));
+                gridPane.setHgap(10);
+                gridPane.setVgap(10);
 
                 maps.add(mapa);
             }
         }
 
-        borderPane.setCenter(out);
+        borderPane.setCenter(gridPane);
     }
+
 
     /**
      * Начальная инициализация
-     *
+     * <p>
      * Добавляется слушатель события нажатия на пункт меню справа
+     *
      * @param location
      * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         maps = new ArrayList<>();
+        imgBuffer = new ImageBuffer();
+        MapFactory factoryMap = new MapFactory();
+        ImgSelect.setImage(new Image(String.valueOf(getClass().getResource("img/1.png"))));
+
+        //--------------------- Щелчок по картинке справа выбирает картинку, для дальнейшего рисования на карте
+        imgBase0.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imgBuffer.setId("0");
+                imgBuffer.setImg(factoryMap.switchImg("0"));
+                ImgSelect.setImage(imgBuffer.getImg());
+            }
+        });
+        imgBase1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imgBuffer.setId("1");
+                imgBuffer.setImg(factoryMap.switchImg("1"));
+                ImgSelect.setImage(imgBuffer.getImg());
+            }
+        });
+        imgBase2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imgBuffer.setId("2");
+                imgBuffer.setImg(factoryMap.switchImg("2"));
+                ImgSelect.setImage(imgBuffer.getImg());
+            }
+        });
+        imgBase3.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imgBuffer.setId("3");
+                imgBuffer.setImg(factoryMap.switchImg("3"));
+                ImgSelect.setImage(imgBuffer.getImg());
+            }
+        });
+        imgBase4.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imgBuffer.setId("4");
+                imgBuffer.setImg(factoryMap.switchImg("4"));
+                ImgSelect.setImage(imgBuffer.getImg());
+            }
+        });
+        imgBase5.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imgBuffer.setId("5");
+                imgBuffer.setImg(factoryMap.switchImg("5"));
+                ImgSelect.setImage(imgBuffer.getImg());
+            }
+        });
+        imgBase6.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imgBuffer.setId("6");
+                imgBuffer.setImg(factoryMap.switchImg("6"));
+                ImgSelect.setImage(imgBuffer.getImg());
+            }
+        });
+        imgBase7.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imgBuffer.setId("7");
+                imgBuffer.setImg(factoryMap.switchImg("7"));
+                ImgSelect.setImage(imgBuffer.getImg());
+            }
+        });
+        //-------------------------------------------------------
+
         //---------------------- Клики
-        imgT11.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+       /* imgT11.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
                 Image i = new Image(String.valueOf(getClass().getResource("img/MapConstructor/lug/lug.gif")));
-                SetImgToMap(1, i);
+               maps.SetId(1, i);
             }
-        });
+        });*/
 
-//       Image i = new Image(String.valueOf(getClass().getResource("2.png")));
-/*
-        imgT21.setImage(i);
-        imgT22.setImage(i);
-        imgT23.setImage(i);
-        imgT24.setImage(i);
-        imgT25.setImage(i);
-        imgT26.setImage(i);
-        imgT27.setImage(i);
-        imgT28.setImage(i);
 
-        imgT11.setImage(i);
-        imgT12.setImage(i);
-        imgT13.setImage(i);
-        imgT14.setImage(i);
-        imgT15.setImage(i);
-        imgT16.setImage(i);
-        imgT17.setImage(i);
-        imgT18.setImage(i);
-*/
+     /*   imgBase0.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("PRESSED!!");
+                imgBase0.setStyle("-fx-border-color: red");
+                imgBase0.getStyleClass().add("imgSelected");
+                imgBuffer.setId(0);
+                imgBuffer.setImg(new Image(String.valueOf(getClass().getResource("img/MapConstructor/river/river_classic.png"))));
+            }
+        });*/
+
+
     }
 
     /**
@@ -125,6 +214,8 @@ public class ControllerMapConstructor implements Initializable {
      */
     @FXML
     private void Save() {
+
+        System.out.println(maps);
         //------------------------ Открытие диалогового окна
         Stage stage = new Stage();
 
@@ -142,7 +233,7 @@ public class ControllerMapConstructor implements Initializable {
         System.out.println(maps.size());
         for (Mapa p : maps) {
             list.add(p.getIdString());
-            System.out.println(p.getIdString());
+            System.out.println(p.getId());
         }
 
         size.add(width.getText());
@@ -164,6 +255,7 @@ public class ControllerMapConstructor implements Initializable {
 
     /**
      * Чтение информации о карте из файла
+     *
      * @param actionEvent
      */
     @FXML
@@ -190,32 +282,58 @@ public class ControllerMapConstructor implements Initializable {
             e.printStackTrace();
         }
         //----------------------- Заполнение полей
-        width.setText(list.get(0));
-        height.setText(list.get(1));
-        cellsSize.setText(list.get(2));
 
-        CreateTable(actionEvent);
+
+        System.out.println("Read: " + list);
+
+        int w = Integer.parseInt(list.get(0));
+        int h = Integer.parseInt(list.get(1));
+        int c = Integer.parseInt(list.get(2));
+
+        int counter = 3;
+        GridPane out = new GridPane();
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                Mapa mapa = new Mapa(i, j, c, list.get(counter));
+                counter++;
+
+                mapa.getImg().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        mapa.getImg().setImage(imgBuffer.getImg());
+                        System.out.println("ID " + imgBuffer.getId());
+                        mapa.setId(imgBuffer.getId());
+                        //    event.consume();
+                    }
+                });
+                out.add(mapa.getBox(), i, j);
+                out.setPrefHeight(100);
+                out.setPrefWidth(100);
+                out.setPadding(new Insets(10, 10, 10, 10));
+                out.setHgap(10);
+                out.setVgap(10);
+
+                maps.add(mapa);
+            }
+        }
+
+        borderPane.setCenter(out);
     }
 
-    /**
-     * Вот хз, честно
-     * @param actionEvent
-     */
+
     @FXML
     private void SetId(ActionEvent actionEvent) {
         for (Mapa i : maps) {
             if (i.getCheck()) {
-                i.setId(1);
+                i.setId("1");
             }
         }
 
     }
 
-    /**
-     * тестовое
-     * @param event
-     */
-    @FXML
+
+
+ /*   @FXML
     private void moved(MouseEvent event) {
 
         Parent root = null;
@@ -230,32 +348,11 @@ public class ControllerMapConstructor implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    /**
-     * тестовое
-     * @param event
-     */
-    @FXML
+
+  /*  @FXML
     private void movedEnd(MouseEvent event) {
-     //   tipStage.close();
-    }
-
-    /**
-     * Замена изображения на элементе и установка id
-     * @param id
-     * @param img
-     */
-    @FXML
-    private void SetImgToMap(int id, Image img){
-        for (Mapa i : maps) {
-            if (i.getCheck()) {
-                i.setId(id);
-                i.setImge(img);
-            }
-        }
-    }
-
-
-
+        //   tipStage.close();
+    }*/
 }
