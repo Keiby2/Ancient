@@ -1,0 +1,15 @@
+.grid{
+-fx-background-color: black;
+}
+
+.imgSelected{
+-fx-border-color: red;
+-fx-border-width: 1.0;
+-fx-border-height: 1.0;
+/*-fx-padding: 10;*/
+}
+
+.imgUnSelected{
+-fx-border-width: 0;
+-fx-border-height: 0;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="212.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Wind">
+   <children>
+      <ColorPicker layoutX="216.0" layoutY="46.0" />
+      <Label layoutX="85.0" layoutY="14.0" text="Label" />
+      <Label layoutX="85.0" layoutY="71.0" text="Label" />
+      <Button layoutX="205.0" layoutY="138.0" mnemonicParsing="false" text="Button" />
+   </children>
+</AnchorPane>
